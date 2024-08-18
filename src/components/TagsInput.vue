@@ -1,7 +1,8 @@
 <template>
     <div v-for="(tag, index) in tags">{{ index + ' : ' + tag }}</div>
-    <input type="text" :value="newTag" @keydown.enter="tags.push($event.target.value)"
-        @keydown.tab.prevent="tags.push($event.target.value)" />
+    <hr>
+    {{ newTag }}
+    <input type="text" v-model="newTag" @keydown.enter="tags.push(newTag)" @keydown.tab.prevent="tags.push(newTag)" />
     <!-- <button @click="tags.push(newTag)">OK</button> -->
 </template>
 
