@@ -5,7 +5,7 @@
     <hr />
     {{ newTag }}
     <input type="text" v-model="newTag" @keydown.enter="addNewTag" @keydown.delete="removeLastTag"
-        @keydown.tab.prevent="addNewTag" />
+        @keydown.tab.prevent="addNewTag" :class="{ 'tag-exists': tags.includes(newTag) }" />
 </template>
 
 <script>
@@ -34,3 +34,10 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.tag-exists {
+    color: red;
+    text-decoration: line-through
+}
+</style>
