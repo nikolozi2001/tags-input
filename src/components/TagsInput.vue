@@ -22,10 +22,19 @@
 
 <script>
 export default {
-  data: () => ({
-    tags: ["vue", "react", "angular"],
-    newTag: "preact ",
-  }),
+  data() {
+    return {
+      tags: [...this.selectedTags],
+      newTag: "", // default value
+    };
+  },
+
+  props: {
+    selectedTags: {
+      type: Array,
+      default: () => [],
+    },
+  },
 
   watch: {
     newTag(newVal) {

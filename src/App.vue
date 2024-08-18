@@ -1,19 +1,24 @@
 <script>
-import TagsInput from './components/TagsInput.vue';
-
+import TagsInput from "./components/TagsInput.vue";
 
 export default {
-  components: {
-    // TagsInput
-  }
-}
+  data: () => {
+    return {
+      jsFramework: ["react.js", "vue.js", "angular"],
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.jsFramework.push("ember.js");
+    }, 3000);
+  },
+};
 </script>
 
 <template>
   <h1>Hello World</h1>
 
   <tags-input />
-
 </template>
 
 <style scoped>
