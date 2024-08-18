@@ -1,13 +1,11 @@
 <template>
   <div class="tags-input-wrapper">
-    <span class="tag-item" v-for="(tag, index) in tags" :key="index"
-      >{{ index + " : " + tag }}
-      <a class="remove-tag" href="#" @click.prevent="removeTag(index)"
+    <span class="tag-item" v-for="(tag, index) in tags" :key="index">
+      {{ tag }}
+      <a class="remove-tag" @click.prevent="removeTag(index)" href="#"
         >&times;</a
       >
     </span>
-    <hr />
-    {{ newTag }}
     <input
       class="tag-input"
       type="text"
@@ -25,17 +23,15 @@ export default {
   data() {
     return {
       tags: [...this.selectedTags],
-      newTag: "", // default value
+      newTag: "",
     };
   },
-
   props: {
     selectedTags: {
       type: Array,
       default: () => [],
     },
   },
-
   watch: {
     newTag(newVal) {
       if (newVal.indexOf(",") > -1) {
@@ -44,22 +40,23 @@ export default {
       }
     },
   },
-
   computed: {
     isTagExists() {
       return this.tags.includes(this.newTag);
     },
   },
-
+  emits: ["change"],
   methods: {
     addNewTag() {
       if (this.newTag && !this.isTagExists) {
-        this.tags.push(this.newTag.trim());
+        this.tags.push(this.newTag);
         this.newTag = "";
+        this.$emit("change", this.tags);
       }
     },
     removeTag(index) {
       this.tags.splice(index, 1);
+      this.$emit("change", this.tags);
     },
     removeLastTag() {
       if (this.newTag.length === 0) {
@@ -75,7 +72,6 @@ export default {
   color: red;
   text-decoration: line-through;
 }
-
 .tags-input-wrapper {
   background: #fff;
   padding: 0.5em;
@@ -112,7 +108,6 @@ export default {
 .tag-input:focus {
   outline: none;
 }
-
 a.remove-tag {
   text-decoration: none;
 }
